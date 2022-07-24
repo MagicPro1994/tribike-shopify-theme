@@ -1,0 +1,500 @@
+</div> <!-- /.container.content -->
+
+{% capture positions %}{{ settings.position_1 }},{{ settings.position_2 }},{{ settings.position_3 }},{{ settings.position_4 }},{{ settings.position_5 }},{{ settings.position_6 }},{{ settings.position_7 }},{{ settings.position_8 }},{{ settings.position_9 }},{{ settings.position_10 }},{{ settings.position_11 }},{{ settings.position_12 }},{{ settings.position_13 }},{{ settings.position_14 }},{{ settings.position_15 }}{% endcapture %}
+{% assign positions = positions | split: ',' %}
+
+{% for position in positions %}
+
+  {% if position == "1" %}
+    {% if settings.slideshow_enabled %}
+      <div {% if settings.slideshow_stretch == false %}class="container content"{% endif %}>
+        <div id="homepage_slider" class="flexslider">
+          <ul class="slides">
+            {% for i in (1..6) %}
+              {% capture slide_enabled %}slideshow_{{ i }}_enabled{% endcapture %}
+              {% capture slide_image %}slideshow_{{ i }}.jpg{% endcapture %}
+              {% capture image_link %}image_{{ i }}_link{% endcapture %}
+              {% capture image_headline %}image_{{ i }}_headline{% endcapture %}
+              {% capture image_subtitle %}image_{{ i }}_subtitle{% endcapture %}
+              {% capture image_button_text %}image_{{ i }}_button_text{% endcapture %}
+              {% capture image_text_align %}image_{{ i }}_text_align{% endcapture %}
+              {% if settings[slide_enabled] %}
+                <li>
+                  <a {% if settings[image_link] != blank %}href="{{ settings[image_link] }}"{% endif %}>
+                    <img  src="{{ slide_image | asset_img_url: '1200x' }}"
+                          alt="{{ settings[slide_title] | escape }}"
+                          class="lazyload transition-in"
+                          data-sizes="auto"
+                          data-src="{{ slide_image | asset_img_url: '1200x' }}"
+                          data-srcset=" {{ slide_image | asset_img_url: '480x' }} 480w,
+                                        {{ slide_image | asset_img_url: '768x' }} 768w,
+                                        {{ slide_image | asset_img_url: '1200x' }} 1200w,
+                                        {{ slide_image | asset_img_url: '2048x2048' }} 2048w"
+                           />
+
+                  </a>
+                  {% if settings[image_headline] != blank or settings[image_subtitle] != blank or settings[image_button_text] != blank %}
+                    <div class="flex-caption homepage_slider__flex-caption">
+                      <div class="container">
+                        <div class="columns {% if settings[image_text_align] == 'left' %} align_left seven offset-by-one {% elsif settings[image_text_align] == 'right' %} align_left caption_right seven offset-by-eight  {% else %} eight offset-by-four {% endif %}">
+                          {% if forloop.first == true %}
+                            <h1 class="headline">
+                              {{ settings[image_headline] }}
+                            </h1>
+                          {% else %}
+                            <p class="headline">
+                              {{ settings[image_headline] }}
+                            </p>
+                          {% endif %}
+                          <p class="subtitle">{{ settings[image_subtitle] }}</p>
+                          {% if settings[image_button_text] != blank %}
+                            <a href="{{ settings[image_link] }}" class="action_button">
+                              {{ settings[image_button_text] }}
+                            </a>
+                          {% endif %}
+                        </div>
+                      </div>
+                    </div>
+                  {% endif %}
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    {% endif %}
+
+  {% endif %}
+
+  {% if position == "2" %}
+
+    <div class="slider flexslider">
+      <ul class="slides">
+        <li>
+          {% if settings.banner_1_link != blank %}
+            <a href="{{ settings.banner_1_link }}">
+          {% endif %}
+            <img  src="{{ 'banner_1.jpg' | asset_img_url: '1200x' }}"
+                  alt="{{ settings.banner_1_alt_text | escape }}"
+                  class="lazyload transition-in"
+                  data-sizes="auto"
+                  data-src="{{ 'banner_1.jpg' | asset_img_url: '1200x' }}"
+                  data-srcset=" {{ 'banner_1.jpg' | asset_img_url: '480x' }} 480w,
+                                {{ 'banner_1.jpg' | asset_img_url: '768x' }} 768w,
+                                {{ 'banner_1.jpg' | asset_img_url: '1200x' }} 1200w,
+                                {{ 'banner_1.jpg' | asset_img_url: '2048x2048' }} 2048w"
+                   />
+
+          {% if settings.banner_1_link != blank %}
+            </a>
+          {% endif %}
+          {% if settings.banner_1_headline != blank or settings.banner_1_subtitle != blank or settings.banner_1_button_text != blank %}
+            <div class="flex-caption">
+              <div class="container">
+                <div class="columns {% if settings.banner_1_text_align == 'left' %} align_left seven offset-by-one {% elsif settings.banner_1_text_align == 'right' %} align_left caption_right seven offset-by-eight {% else %} eight offset-by-four {% endif %}">
+                  <p class="headline">{{ settings.banner_1_headline }}</p>
+                  <p class="subtitle">{{ settings.banner_1_subtitle }}</p>
+                  {% if settings.banner_1_button_text != blank %}
+                    <a href="{{ settings.banner_1_link }}" class="action_button">
+                      {{ settings.banner_1_button_text }}
+                    </a>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          {% endif %}
+        </li>
+      </ul>
+    </div>
+
+  {% endif %}
+
+  {% if position == "3" %}
+
+    <div class="slider flexslider">
+      <ul class="slides">
+        <li>
+          {% if settings.banner_2_link != blank %}
+            <a href="{{ settings.banner_2_link }}">
+          {% endif %}
+            <img  src="{{ 'banner_2.jpg' | asset_img_url: '1200x' }}"
+                  alt="{{ settings.banner_1_alt_text | escape }}"
+                  class="lazyload transition-in"
+                  data-sizes="auto"
+                  data-src="{{ 'banner_2.jpg' | asset_img_url: '1200x' }}"
+                  data-srcset=" {{ 'banner_2.jpg' | asset_img_url: '480x' }} 480w,
+                                {{ 'banner_2.jpg' | asset_img_url: '768x' }} 768w,
+                                {{ 'banner_2.jpg' | asset_img_url: '1200x' }} 1200w,
+                                {{ 'banner_2.jpg' | asset_img_url: '2048x2048' }} 2048w"
+                   />
+
+          {% if settings.banner_2_link != blank %}
+            </a>
+          {% endif %}
+          {% if settings.banner_2_headline != blank or settings.banner_2_subtitle != blank or settings.banner_2_button_text != blank %}
+            <div class="flex-caption">
+              <div class="container">
+                <div class="columns {% if settings.banner_2_text_align == 'left' %} align_left seven offset-by-one {% elsif settings.banner_2_text_align == 'right' %} align_left caption_right seven offset-by-eight {% else %} eight offset-by-four {% endif %}">
+                  <p class="headline">{{ settings.banner_2_headline }}</p>
+                  <p class="subtitle">{{ settings.banner_2_subtitle }}</p>
+                  {% if settings.banner_2_button_text != blank %}
+                    <a href="{{ settings.banner_2_link }}" class="action_button">
+                      {{ settings.banner_2_button_text }}
+                    </a>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          {% endif %}
+        </li>
+      </ul>
+    </div>
+
+  {% endif %}
+
+  {% if position == "4" %}
+
+    <div class="slider flexslider">
+      <ul class="slides">
+        <li>
+          {% if settings.banner_3_link != blank %}
+            <a href="{{ settings.banner_3_link }}">
+          {% endif %}
+            <img  src="{{ 'banner_3.jpg' | asset_img_url: '1200x' }}"
+                  alt="{{ settings.banner_1_alt_text | escape }}"
+                  class="lazyload transition-in"
+                  data-sizes="auto"
+                  data-src="{{ 'banner_3.jpg' | asset_img_url: '1200x' }}"
+                  data-srcset=" {{ 'banner_3.jpg' | asset_img_url: '480x' }} 480w,
+                                {{ 'banner_3.jpg' | asset_img_url: '768x' }} 768w,
+                                {{ 'banner_3.jpg' | asset_img_url: '1200x' }} 1200w,
+                                {{ 'banner_3.jpg' | asset_img_url: '2048x2048' }} 2048w"
+                   />
+
+          {% if settings.banner_3_link != blank %}
+            </a>
+          {% endif %}
+          {% if settings.banner_3_headline != blank or settings.banner_3_subtitle != blank or settings.banner_3_button_text != blank %}
+            <div class="flex-caption">
+              <div class="container">
+                <div class="columns {% if settings.banner_3_text_align == 'left' %} align_left seven offset-by-one {% elsif settings.banner_3_text_align == 'right' %} align_left caption_right seven offset-by-eight {% else %} eight offset-by-four {% endif %}">
+                  <h3 class="headline">{{ settings.banner_3_headline }}</h3>
+                  <p class="subtitle">{{ settings.banner_3_subtitle }}</p>
+                  {% if settings.banner_3_button_text != blank %}
+                    <a href="{{ settings.banner_3_link }}" class="action_button">
+                      {{ settings.banner_3_button_text }}
+                    </a>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          {% endif %}
+        </li>
+      </ul>
+    </div>
+
+  {% endif %}
+
+  {% if position == "5" %}
+    <div class="container content">
+      {% if settings.frontpage_linklist %}
+        {% if settings.frontpage_collections_menu_title %}
+          <div class="sixteen columns">
+            <h2>{{ linklists[settings.frontpage_linklist].title }}</h2>
+          </div>
+        {% endif %}
+        {% assign linklist = linklists[settings.frontpage_linklist] %}
+        {% assign collections_per_row = settings.frontpage_collections_per_row %}
+        <div class="sixteen columns">
+          <div class="section clearfix">
+            {% include 'collection-loop' %}
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {% if position == "6" %}
+
+    {% assign featured_promos_per_row = settings.featured_promos_per_row | minus: 0 %}
+    {% assign featured_promos_grid = settings.featured_promos_grid %}
+    {% assign title_on_image = settings.feature_title_on_image_enabled %}
+
+    <div class="container promotions-grid-{{featured_promos_grid}}">
+      <div id="js-featured-promotions" class="featured-promotions promo-per-row-{{featured_promos_per_row}} clearfix">
+          {% for i in (1..8) %}
+            {% capture feature_enabled %}feature{{ i }}_enabled{% endcapture %}
+            {% capture feature_image %}feature{{ i }}.jpg{% endcapture %}
+            {% capture feature_link %}feature{{ i }}_link{% endcapture %}
+            {% capture feature_title %}feature{{ i }}_title{% endcapture %}
+            {% capture feature_description %}feature{{ i }}_description{% endcapture %}
+            {% capture feature_button %}feature{{ i }}_button{% endcapture %}
+
+            {% if settings[feature_enabled] %}
+              <figure class="feature-section section-{{ forloop.index }} promo-{{i}} title-overlay-{{title_on_image}}">
+                <a {% if settings[feature_link] != blank %}href="{{ settings[feature_link] }}"{% endif %}>
+                  <img  src="{{ feature_image | asset_img_url: '1024x1024' }}"
+                        alt="{{ settings[feature_title] | escape }}"
+                        class="lazyload transition-in"
+                        data-sizes="auto"
+                      {% if featured_promos_per_row == 2 %}
+                        data-src="{{ feature_image | asset_img_url: '1024x1024' }}"
+                        data-srcset=" {{ feature_image | asset_img_url: 'large' }} 480w,
+                                      {{ feature_image | asset_img_url: 'grande' }} 600w,
+                                      {{ feature_image | asset_img_url: '1024x1024' }} 1024w"
+                      {% elsif featured_promos_per_row == 3 %}
+                        data-src="{{ feature_image | asset_img_url: 'grande' }}"
+                        data-srcset=" {{ feature_image | asset_img_url: 'medium' }} 240w,
+                                      {{ feature_image | asset_img_url: 'large' }} 480w,
+                                      {{ feature_image | asset_img_url: 'grande' }} 600w"
+                      {% else %}
+                        data-src="{{ feature_image | asset_img_url: 'grande' }}"
+                        data-srcset=" {{ feature_image | asset_img_url: 'compact' }} 160w,
+                                      {{ feature_image | asset_img_url: 'medium' }} 240w,
+                                      {{ feature_image | asset_img_url: 'large' }} 480w"
+                      {% endif %}
+                         />
+                  </a>
+                  {% if settings[feature_title] != blank or settings[feature_description] != blank %}
+                    <figcaption class="feature-overlay">
+                        <div class="feature-wrap">
+                          {% if settings[feature_title] != blank %}
+                            <a {% if settings[feature_link] != blank %}href="{{ settings[feature_link] }}"{% endif %}><h2 class="title">{{ settings[feature_title] }}</h2></a>
+                          {% endif %}
+                          <div class="feature-details">
+                            {% if settings[feature_description] != blank %}
+                              <p class="description">{{ settings[feature_description] }}</p>
+                            {% endif %}
+                          </div>
+                        </div>
+                    </figcaption>
+                  {% endif %}
+              </figure>
+            {% endif %}
+          {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+
+  {% if position == "7" %}
+    <div class="container content">
+      {% if settings.frontpage_collection != blank %}
+        {% assign collection = '' %}
+        {% assign products = collections[settings.frontpage_collection].products %}
+        {% assign products_per_row = settings.frontpage_products_per_row %}
+        <div class="sixteen columns">
+          <div class="section clearfix">
+            <h2 {% if settings.frontpage_linklist %}class="home"{% endif %}>{{ collections[settings.frontpage_collection].title }}</h2>
+            {% include 'product-loop' %}
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {% if position == "8" %}
+    <div class="container content">
+      {% if settings.frontpage_collection2 != blank %}
+        {% assign collection = '' %}
+        {% assign products = collections[settings.frontpage_collection2].products %}
+        {% assign products_per_row = settings.frontpage_products_per_row %}
+        <div class="sixteen columns">
+          <div class="section clearfix">
+            <h2 class="home">{{ collections[settings.frontpage_collection2].title }}</h2>
+            {% include 'product-loop' %}
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {% if position == "9" %}
+    <div class="container content">
+      {% if settings.frontpage_collection_full != blank %}
+        <div class="sixteen columns clearfix" itemtype="http://schema.org/ItemList">
+          {% assign collection = '' %}
+          {% assign products = collections[settings.frontpage_collection_full].products %}
+          {% include 'product-full' %}
+        </div>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {% if position == "10" %}
+    <div class="container content">
+      {% if settings.homepage != blank %}
+        <div class="sixteen columns">
+          <div class="homepage_content section clearfix">
+            {% include 'page-multi-column', content: pages[settings.homepage].content %}
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {% if position == "11" %}
+    <div class="container content">
+      {% if settings.homepage2 != blank %}
+        <div class="sixteen columns">
+          <div class="homepage_content section clearfix">
+            {% include 'page-multi-column', content: pages[settings.homepage2].content %}
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {% if position == "12" %}
+    <div class="container content">
+      {% if settings.homepage3 != blank %}
+        <div class="sixteen columns">
+          <div class="homepage_content section clearfix">
+            {% include 'page-multi-column', content: pages[settings.homepage3].content %}
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {% if position == "13" %}
+    <div class="container content">
+      {% if settings.blog_widget_select != blank %}
+        <div class="section clearfix homepage_content">
+          <h2 class="title"><a href="{{ blogs[settings.blog_widget_select].url }}">{{ blogs[settings.blog_widget_select].title }}</a></h2>
+          {% for article in blogs[settings.blog_widget_select].articles limit: settings.home_page_articles %}
+            <div class="{% if settings.home_page_articles == "2" %}eight columns{% elsif settings.home_page_articles == "3" %}one-third column{% else %}four columns{% endif %} article">
+              {% if article.image %}
+                <a href="{{ article.url }}" title="{{ article.title | escape }}">
+                  <img  src="{{ article.image | img_url: 'grande' }}"
+                        alt="{{ article.title | escape }}"
+                        class="lazyload transition-in"
+                        data-sizes="auto"
+                        data-src="{{ article.image | img_url: 'grande' }}"
+                        data-srcset=" {{ article.image | img_url: 'grande' }} 600w,
+                                      {{ article.image | img_url: '1024x1024' }} 1024w"
+                         />
+
+                </a>
+              {% endif %}
+
+              {% if settings.blog_tags %}
+                <div class="blog_meta tags">
+                  {% for tag in article.tags %}
+                    <span><a href="{{ shop.url}}/blogs/{{ blogs[settings.blog_widget_select].handle }}/tagged/{{ tag | handleize }}" title="{{ blogs[settings.blog_widget_select].title | escape }} {{ 'blogs.general.tagged' | t }} {{ tag | escape }}">{{ tag }}</a></span>
+                  {% endfor %}
+                </div>
+              {% endif %}
+
+              <h5 class="sub_title">
+                <a href="{{ article.url }}" title="{{ article.title | escape }}">{{ article.title }}</a>
+              </h5>
+              <p class="blog_meta">
+                {% if settings.blog_author %}
+                  <span>{{ 'blogs.article.by_author' | t: author: article.author }}</span>
+                {% endif %}
+
+                {% if settings.blog_date %}
+                  <span>{{ article.published_at | date: format: "month_day_year" }}</span>
+                {% endif %}
+
+                {% if settings.blog_comment_count %}
+                  {% if settings.disqus_enabled %}
+                    <span>
+                      <a href="{{ article.url }}#disqus_thread" data-disqus-identifier="{{ article.id }}" class="disqus-comment-count">{{ 'blogs.counts.comments_with_count' | t: count: 0 }}</a>
+                    </span>
+                  {% elsif article.comments_enabled? and article.comments_count > 0 %}
+                    <span>
+                      <a href="{{ article.url }}#comments">{{ 'blogs.counts.comments_with_count' | t: count: article.comments_count }}</a>
+                    </span>
+                  {% endif %}
+                {% endif %}
+              </p>
+
+              {% if article.excerpt != blank %}
+                {{ article.excerpt }}
+              {% endif %}
+              {% if settings.read_more_link %}
+                <p>
+                  <a href="{{ article.url }}" title="{{ article.title | escape }}">{{ 'blogs.general.continue_reading_html' | t }} <span class="icon-right-arrow"></span></a>
+                </p>
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {% if position == "14" %}
+    <div class="container content">
+      {% if settings.twitter_widget != blank or settings.instagram_widget != blank %}
+        <div class="section clearfix">
+          {% if settings.instagram_widget %}
+            <div class="{% if settings.twitter_widget != blank %}eight{% else %}sixteen{% endif %} columns">
+              <h4 class="title">
+                {% if settings.instagram_link != blank %}
+                  <a href="{{ settings.instagram_link }}" target="_blank">
+                {% endif %}
+                {{ settings.instagram_title }}
+                {% if settings.instagram_link != blank %}
+                  </a>
+                {% endif %}
+              </h4>
+
+              <div id="instafeed" data-client-id="{{ settings.instagram_client_id | strip }}" data-count="{{ settings.instagram_count | strip }}"></div>
+            </div>
+          {% endif %}
+
+          {% if settings.twitter_widget != blank %}
+            <div class="{% if settings.instagram_widget != blank %}eight{% else %}sixteen{% endif %} columns">
+              <h4 class="title"><a href="https://twitter.com/{{ settings.twitter_username | replace: "@", "" | strip }}" target="_blank">{{ settings.twitter_title }}</a></h4>
+              <a class="twitter-timeline" data-theme="{{ settings.twitter_theme }}" href="https://twitter.com/{{ settings.twitter_username | replace: "@", "" | strip }}" data-widget-id="319998048782647298" data-tweet-limit="{{ settings.tweet_count }}" data-screen-name="{{ settings.twitter_username | replace: "@", "" | strip }}" data-chrome="noheader nofooter noborders transparent" data-link-color="{{ settings.link_color }}" data-heading-style="color:{{ settings.link_color }};font-size:{{ settings.regular_font_size }}px;font-family: {{ settings.regular_font | replace: 'Google_', '' | replace: '+', ' ' | replace: '"', '' }}blog_widget_select"></a>
+              <script defer>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {% if position == "15" %}
+    <div id="homepage-video" class="homepage-video">
+      <div class="homepage-video--media"
+        data-video-src="{{ settings.banner_video_id }}"
+        data-aspect-ratio="{{ settings.aspect_ratio }}"
+        data-provider="{{ settings.banner_video_source }}"
+        data-video-mp4="{{ settings.banner_video_mp4 }}"
+        data-video-ogv="{{ settings.banner_video_ogv }}">
+        <img  data-play-video
+              src="{{ 'banner_video_poster.jpg' | asset_img_url: '1200x' }}"
+              alt="{{ settings.video_headline | escape }}"
+              class="lazyload transition-in"
+              data-sizes="auto"
+              data-src="{{ 'banner_video_poster.jpg' | asset_img_url: '1200x' }}"
+                  data-srcset=" {{ 'banner_video_poster.jpg' | asset_img_url: '480x' }} 480w,
+                                {{ 'banner_video_poster.jpg' | asset_img_url: '768x' }} 768w,
+                                {{ 'banner_video_poster.jpg' | asset_img_url: '1200x' }} 1200w,
+                                {{ 'banner_video_poster.jpg' | asset_img_url: '2048x2048' }} 2048w"
+               />
+
+        <div class="flex-caption flexslider caption js-caption text-on-video">
+          <div class="container">
+            <div class="columns {% if settings.banner_video_text_align == 'left' %} align_left seven offset-by-one {% elsif settings.banner_video_text_align == 'right' %} align_left caption_right seven offset-by-eight {% else %} eight offset-by-four {% endif %}">
+              <p class="headline">
+                {{ settings.banner_video_headline }}
+              </p>
+              <p class="subtitle">
+                {{ settings.banner_video_subtitle }}
+              </p>
+              {% if settings.banner_video_button_text != blank %}
+                <a {% if settings.banner_video_link != blank %}href="{{ settings.banner_video_link }}"{% else %}data-play-video{% endif %} class="action_button">
+                  {{ settings.banner_video_button_text }}
+                </a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+{% endfor %}

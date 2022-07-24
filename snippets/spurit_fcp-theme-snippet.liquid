@@ -1,0 +1,108 @@
+
+<script>!window.jQuery && document.write('<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></sc' + 'ript>')</script>
+{{ 'api.jquery.js' | shopify_asset_url | script_tag }}
+
+{{ 'spurit_fcp-style.css' | asset_url | stylesheet_tag }}
+{{ 'spurit_fcp-user-style.css' | asset_url | stylesheet_tag }}
+
+<script type="text/javascript">//<![CDATA[
+    {% if template != 'product' %}
+    var spurItPriceIndicator = {};
+    spurItPriceIndicator.settings = {};
+    spurItPriceIndicator.settings.prices = {{ shop.metafields.spurit_fcp_settings.prices }};
+    spurItPriceIndicator.settings.elements = {{ shop.metafields.spurit_fcp_settings.elements }};
+    {% endif; %}
+    
+    var specialPrices = spurItPriceIndicator.settings.prices;
+    
+    function spuritShowSpecialPrices($) {
+        
+        var priceProxy = {};
+        var formattedKey;
+        var elements = spurItPriceIndicator.settings.elements;
+        
+        for (price in specialPrices) {
+            if (specialPrices[price].enabled == '1') {
+                formattedKey = Shopify.formatMoney(price, '{{ shop.money_with_currency_format }}');
+                priceProxy[formattedKey] = price;
+                formattedKey = Shopify.formatMoney(price, '{{ shop.money_format }}');
+                priceProxy[formattedKey] = price;
+            }
+        }
+        
+        var elParts=[];
+        for (el in elements) {
+            elParts = el.split('_');
+            if(elParts[elParts.length - 1] != 'hide') {
+                if (elements[el] != '' && el != 'price' ) {
+                    spuritFPCPReplace(elements[el], priceProxy);
+                }
+            }
+        }
+        
+        // Custom element selectors
+        var customElements = spurItPriceIndicator.settings.elements.custom_selectors;
+        if (typeof(customElements) != 'undefined' && customElements != '') {
+            var selectors = customElements.split('\r\n');
+            var selector;
+            for (selector in selectors) {
+                spuritFPCPReplace(selectors[selector], priceProxy);
+            }
+        }
+    }
+    
+    function spuritFPCPReplace(selector, priceProxy) {
+        if (selector == '') return;
+        $(selector).each(function(){
+            elVal = $(this).html().trim();
+            for(spPrice in priceProxy) {
+                if (elVal.indexOf(jQuery("<div/>").html(spPrice).text()) == 0) {
+                    $(this).html(specialPrices[priceProxy[spPrice]].text);
+                    break;
+                }
+            }
+        });
+    }
+    
+    try{
+        spuritShowSpecialPrices(jQuery);
+        {% if (template == 'product') %}
+        jQuery(spurItPriceIndicator.settings.elements.product_box_hide).hide();
+        {% endif; %}
+    } catch(err) {}
+    
+    (function($) {
+        function asyncThemePriceIndicatorLoad() {
+            {% if (template == 'product') %}
+            function spuritBuildVariantName() {
+                var options = [];
+                $('.single-option-selector').each(function(){
+                    options.push($(this).val());
+                });
+                
+                return options.join(' / ');
+            }
+            
+            if ($('.single-option-selector').length) {
+                $('.single-option-selector').bind('change', function() {
+                    if ($('.single-option-selector').length == 1) {
+                        spuritShowProductSpecialPrice($('.single-option-selector option:selected').val());
+                    } else {
+                        spuritShowProductSpecialPrice(spuritBuildVariantName());
+                    }
+                });
+                spuritShowProductSpecialPrice(spuritBuildVariantName());
+            } else {
+                spuritShowProductSpecialPrice('{{ product.variants[0].title }}');
+            }
+                        {% endif; %}
+            
+            spuritShowSpecialPrices($);
+        }
+        
+        window.attachEvent ? window.attachEvent('onload', asyncThemePriceIndicatorLoad) : window.addEventListener('load', asyncThemePriceIndicatorLoad, false);
+    })(jQuery);
+    
+
+    //]]>
+</script>

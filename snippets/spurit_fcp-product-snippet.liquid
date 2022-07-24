@@ -1,0 +1,53 @@
+<script type="text/javascript">
+    var spurItPriceIndicator = {};
+    spurItPriceIndicator.data = {};
+    spurItPriceIndicator.settings = {};
+    spurItPriceIndicator.settings.prices = {{ shop.metafields.spurit_fcp_settings.prices }};
+    spurItPriceIndicator.settings.elements = {{ shop.metafields.spurit_fcp_settings.elements }};
+    //try {
+    //    jQuery(spurItPriceIndicator.settings.elements.product_box_hide).hide();
+    //} catch(err) {}
+    
+    {% for variant in product.variants %}
+    spurItPriceIndicator.data['{{ variant.title }}'] = {
+        'title': {{ variant.title | json }},
+        'price': "{{ variant.price }}"
+    }
+    {% endfor %}
+    
+    function spuritShowProductSpecialPrice(variandId) {
+        
+        if (typeof(spurItPriceIndicator.data[variandId]) == 'undefined') {
+            return true;
+        }
+        
+        $(spurItPriceIndicator.settings.elements.product_box_hide).hide();
+        var priceBoxSelector = spurItPriceIndicator.settings.elements.price; //'#purchase .price';
+        
+        $(spurItPriceIndicator.settings.elements.add_button_hide).show();
+        if ($('#specialPriceIndicatorSubtext').length) {
+            $('#specialPriceIndicatorSubtext').remove();
+        }
+        if (specialPrices[spurItPriceIndicator.data[variandId].price] 
+            && specialPrices[spurItPriceIndicator.data[variandId].price].enabled == '1')
+        {
+            var specialPrice = specialPrices[spurItPriceIndicator.data[variandId].price];
+            var text = specialPrice['text'];
+            var subtext = (specialPrice['subText']) ? specialPrice['subText'] : '' ;
+            $(priceBoxSelector).html(text);
+            if (subtext != '') {
+                $(priceBoxSelector).after('<div id="specialPriceIndicatorSubtext">' + subtext + '</div>');
+                $(priceBoxSelector).bind('mouseover', function(){
+                    $('#specialPriceIndicatorSubtext').slideDown();
+                });
+                $(priceBoxSelector).bind('mouseout', function(){
+                    $('#specialPriceIndicatorSubtext').slideUp();
+                });
+            }
+            
+            $(spurItPriceIndicator.settings.elements.add_button_hide).hide();
+        }
+        
+        $(spurItPriceIndicator.settings.elements.product_box_hide).show();
+    }
+</script>
